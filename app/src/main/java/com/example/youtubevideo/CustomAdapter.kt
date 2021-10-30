@@ -26,29 +26,12 @@ class CustomAdapter(private var activity: Activity, private var context: Context
         holder.book_title_txt.text = book_title[position]
         holder.book_author_txt.text = book_author[position]
         holder.book_pages_txt.text = book_pages[position]
-        holder.mainLayout.setOnClickListener {
-            val intent = Intent(context, YoutubeActivity::class.java)
-            intent.putExtra("id", book_id[position])
-            intent.putExtra("title", book_title[position])
-            intent.putExtra("author", book_author[position])
-            intent.putExtra("pages", book_pages[position])
-            activity.startActivityForResult(intent, 1)
-        }
-        holder.mainLayout.setOnLongClickListener { v ->
-            val popup = PopupMenu(context, v)
-            popup.inflate(R.menu.popup_menu)
-            popup.show()
-            popup.setOnMenuItemClickListener(object: PopupMenu.OnMenuItemClickListener{
-                override fun onMenuItemClick(item: MenuItem): Boolean {
-                    if (item.itemId == R.id.item1) {
-                        Toast.makeText(context, "ITEM 1", Toast.LENGTH_SHORT).show()
-                    }
-                    return false
-                }
 
-            })
-            false
-        }
+        //short click
+        shortClickAction(holder, position)
+
+        //long click
+        longClickAction(holder, position)
     }
 
     override fun getItemCount(): Int {
@@ -61,6 +44,35 @@ class CustomAdapter(private var activity: Activity, private var context: Context
         var book_author_txt: TextView = itemView.findViewById(R.id.book_author_txt)
         var book_pages_txt: TextView = itemView.findViewById(R.id.book_pages_txt)
         var mainLayout: LinearLayout = itemView.findViewById(R.id.mainLayout)
+    }
+
+    private fun longClickAction(holder: MyViewHolder, position: Int) {
+        holder.mainLayout.setOnLongClickListener { v ->
+            val popup = PopupMenu(context, v)
+            popup.inflate(R.menu.popup_menu)
+            popup.show()
+            popup.setOnMenuItemClickListener(object: PopupMenu.OnMenuItemClickListener{
+                override fun onMenuItemClick(item: MenuItem): Boolean {
+                    if (item.itemId == R.id.add_to_favorite) {
+                        Toast.makeText(context, "Favorite", Toast.LENGTH_SHORT).show()
+                    }
+                    return false
+                }
+
+            })
+            false
+        }
+    }
+
+    private fun shortClickAction(holder: MyViewHolder, position: Int) {
+        holder.mainLayout.setOnClickListener {
+            val intent = Intent(context, YoutubeActivity::class.java)
+            intent.putExtra("id", book_id[position])
+            intent.putExtra("title", book_title[position])
+            intent.putExtra("author", book_author[position])
+            intent.putExtra("pages", book_pages[position])
+            activity.startActivityForResult(intent, 1)
+        }
     }
 }
 
