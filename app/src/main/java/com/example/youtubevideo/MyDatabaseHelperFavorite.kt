@@ -7,13 +7,13 @@ import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.widget.Toast
 
-class MyDatabaseHelper(private val context: Context) : SQLiteOpenHelper(context, "BookLibrary.db", null, 1) {
+class MyDatabaseHelperFavorite(private val context: Context) : SQLiteOpenHelper(context, "FavoriteLibrary.db", null, 1) {
 
     companion object {
-        private const val DATABASE_NAME = "BookLibrary.db"
+        private const val DATABASE_NAME = "FavoriteLibrary.db"
         private const val DATABASE_VERSION = 1
 
-        private const val TABLE_NAME = "my_library"
+        private const val TABLE_NAME = "favorite_library"
         private const val COLUMN_ID = "_id"
         private const val COLUMN_TITLE = "book_title"
         private const val COLUMN_AUTHOR = "book_author"

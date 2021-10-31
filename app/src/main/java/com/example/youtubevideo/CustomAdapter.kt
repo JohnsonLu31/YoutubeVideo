@@ -47,6 +47,7 @@ class CustomAdapter(private var activity: Activity, private var context: Context
     }
 
     private fun longClickAction(holder: MyViewHolder, position: Int) {
+        val myDB = MyDatabaseHelperFavorite(context)
         holder.mainLayout.setOnLongClickListener { v ->
             val popup = PopupMenu(context, v)
             popup.inflate(R.menu.popup_menu)
@@ -54,7 +55,7 @@ class CustomAdapter(private var activity: Activity, private var context: Context
             popup.setOnMenuItemClickListener(object: PopupMenu.OnMenuItemClickListener{
                 override fun onMenuItemClick(item: MenuItem): Boolean {
                     if (item.itemId == R.id.add_to_favorite) {
-                        Toast.makeText(context, "Favorite", Toast.LENGTH_SHORT).show()
+                        myDB.addBook(book_title[position].trim(), book_author[position].trim(), book_pages[position].trim())
                     }
                     return false
                 }

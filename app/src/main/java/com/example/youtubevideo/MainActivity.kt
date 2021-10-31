@@ -34,6 +34,7 @@ class MainActivity : AppCompatActivity() {
     private var book_author = ArrayList<String>()
     private var book_pages = ArrayList<String>()
     private val customAdapter = CustomAdapter(this, this, book_id, book_title, book_author, book_pages)
+
     //sideable character
     lateinit var toggle: ActionBarDrawerToggle
     lateinit var drawerLayout: DrawerLayout
@@ -74,7 +75,7 @@ class MainActivity : AppCompatActivity() {
 
         navView.setNavigationItemSelectedListener {
             when(it.itemId) {
-                R.id.Item1 -> Toast.makeText(applicationContext, "Clicked Item 1", Toast.LENGTH_SHORT).show()
+                R.id.Item1 -> startActivity(Intent(this, FavoriteActivity::class.java))
                 R.id.Item2 -> Toast.makeText(applicationContext, "Clicked Item 2", Toast.LENGTH_SHORT).show()
                 R.id.Item3 -> Toast.makeText(applicationContext, "Clicked Item 3", Toast.LENGTH_SHORT).show()
             }

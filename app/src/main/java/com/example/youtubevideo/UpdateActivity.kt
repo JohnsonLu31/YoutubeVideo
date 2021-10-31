@@ -16,6 +16,7 @@ class UpdateActivity : AppCompatActivity() {
     private lateinit var pages_input: EditText
     private lateinit var update_button: Button
     private lateinit var delete_button: Button
+    private lateinit var delete_favorite_button: Button
 
     lateinit var id: String
     lateinit var title: String
@@ -31,6 +32,7 @@ class UpdateActivity : AppCompatActivity() {
         pages_input = findViewById(R.id.pages_input2)
         update_button = findViewById(R.id.update_button)
         delete_button = findViewById(R.id.delete_button)
+        delete_favorite_button = findViewById(R.id.delete_favorite_button)
 
         //First we call this
         getAndSetIntentData()
@@ -55,6 +57,10 @@ class UpdateActivity : AppCompatActivity() {
             confirmDialog()
         }
 
+        delete_favorite_button.setOnClickListener {
+
+            confirmDialogFav()
+        }
 
     }
 
@@ -82,6 +88,21 @@ class UpdateActivity : AppCompatActivity() {
         builder.setMessage("Are you sure you want to delete $title ?")
         builder.setPositiveButton("Yes", DialogInterface.OnClickListener { dialog, which ->
             val myDB = MyDatabaseHelper(this)
+            myDB.deleteOneRow(id)
+            finish()
+        })
+        builder.setNegativeButton("No", DialogInterface.OnClickListener { dialog, which ->
+
+        })
+        builder.create().show()
+    }
+
+    fun confirmDialogFav() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Delete $title ?")
+        builder.setMessage("Are you sure you want to delete $title ?")
+        builder.setPositiveButton("Yes", DialogInterface.OnClickListener { dialog, which ->
+            val myDB = MyDatabaseHelperFavorite(this)
             myDB.deleteOneRow(id)
             finish()
         })
